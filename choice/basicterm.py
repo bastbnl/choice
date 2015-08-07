@@ -9,6 +9,8 @@ except AttributeError:
     # Python 2.6 has a version tuple
     input = raw_input
 
+from os import linesep
+
 from choice.util import idNameList
 
 class BasicTermMenu(object):
@@ -138,12 +140,12 @@ class BasicTermBinaryChoice(object):
 
     def ask(self):
         if self.default is None:
-            prompt = '{}\n(y/n)? '.format(self.prompt)
+            options = '(y/n)'
         elif self.default == True:
-            prompt = '{}\n(Y/n)? '.format(self.prompt)
+            options = '{}\n(Y/n)'
         elif self.default == False:
-            prompt = '{}\n(y/N)? '.format(self.prompt)
-        resp = input(prompt).lower().strip()
+            options = '(y/N)'
+        resp = input(self.prompt + linesep + options + '? ').lower().strip()
 
         if len(resp) == 0 and self.default is not None:
             return self.default
