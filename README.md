@@ -26,7 +26,7 @@ Requirements and Installation
 
 For basic functionality:
 
-* Python 2.7 or 3
+* Python 2.6 or 3
 
 To install, just run:
 
