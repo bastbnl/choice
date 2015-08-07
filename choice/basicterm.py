@@ -1,7 +1,12 @@
 from __future__ import division, absolute_import, print_function, unicode_literals
 
 import sys
-if sys.version_info.major < 3:
+
+try:
+    if sys.version_info.major < 3:
+        input = raw_input
+except AttributeError:
+    # Python 2.6 has a version tuple
     input = raw_input
 
 from choice.util import idNameList
