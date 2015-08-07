@@ -34,16 +34,16 @@ class BasicTermMenu(object):
             start = curr_page * self.PAGE_SIZE
             end = start + self.PAGE_SIZE
             for i, c in enumerate(self.choices[start:end]):
-                print(" {}: {}".format(i, c[1]))
+                print(" {0}: {1}".format(i, c[1]))
             if self.global_actions is not None:
                 print()
                 for ga in self.global_actions:
                     if ga[0] == ga[1]:
-                        print("    {}".format(ga[0]))
+                        print("    {0}".format(ga[0]))
                     else:
-                        print(" {}: {}".format(ga[0], ga[1]))
+                        print(" {0}: {1}".format(ga[0], ga[1]))
 
-            print("\nEnter number or name; return for next page")
+            print(linesep + "Enter number or name; return for next page")
             resp = input('? ').strip()
             print()
             if len(resp) == 0:
@@ -60,8 +60,8 @@ class BasicTermMenu(object):
     def pick_action(self):
         print("Select an action:")
         for i, ac in enumerate(self.actions):
-            print(" {}: {}".format(i, ac[1]))
-        print(" {}: back".format(self.BACK_CHAR))
+            print(" {0}: {1}".format(i, ac[1]))
+        print(" {0}: back".format(self.BACK_CHAR))
         resp = input('? ')
         print()
         return str(resp)
@@ -77,7 +77,7 @@ class BasicTermMenu(object):
                     break
             else:
                 # Global action?
-                for ga in self.global_actions:
+                for ga in self.global_actions or []:
                     if resp == ga[0]:
                         return None, ga[0]
 
@@ -88,7 +88,7 @@ class BasicTermMenu(object):
                         break
 
             if choice is None:
-                print("{} is not a valid choice".format(resp))
+                print("{0} is not a valid choice".format(resp))
 
         assert choice is not None
         if self.actions is None or len(self.actions) == 1:
@@ -113,7 +113,7 @@ class BasicTermMenu(object):
                         action = ac
                         break
             if action is None:
-                print("{} is not a valid choice".format(resp))
+                print("{0} is not a valid choice".format(resp))
 
         assert action is not None
         return choice[0], action[0]
@@ -125,7 +125,7 @@ class BasicTermInput(object):
         self.parser = parser
 
     def ask(self):
-        resp = input('{}:\n? '.format(self.prompt))
+        resp = input(self.prompt + ':' + linesep + '? ')
         try:
             return self.parser(resp)
         except ValueError:
@@ -142,7 +142,7 @@ class BasicTermBinaryChoice(object):
         if self.default is None:
             options = '(y/n)'
         elif self.default == True:
-            options = '{}\n(Y/n)'
+            options = '(Y/n)'
         elif self.default == False:
             options = '(y/N)'
         resp = input(self.prompt + linesep + options + '? ').lower().strip()
