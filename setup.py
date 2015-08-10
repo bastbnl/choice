@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='choice',
-      version='0.1',
+      version='0.2c1',
       author='Frank Huang',
       author_email='me@nongraphical.com',
       url='https://github.com/fyhuang/choice',
